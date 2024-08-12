@@ -3,7 +3,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, Plus } from "lucide-react";
+import { Loader, Plus } from "lucide-react";
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./columns";
@@ -26,7 +26,7 @@ const Accounts = () => {
         </CardHeader>
         <CardContent>
           <div className="flex h-[500px] w-full items-center justify-center">
-            <Loader2 className="size-6 animate-spin text-slate-300" />
+            <Loader className="size-6 animate-spin text-slate-300" />
           </div>
         </CardContent>
       </Card>
@@ -46,9 +46,10 @@ const Accounts = () => {
           <DataTable
             columns={columns}
             data={accounts}
-            filterKey="email"
+            filterKey="name"
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
+              deleteAccounts.mutate({ ids });
             }}
             disabled={isDisable}
           />
