@@ -11,7 +11,6 @@ import { accounts, insertAccountSchema } from "@/db/schema";
 const app = new Hono()
   .get("/", clerkMiddleware(), async (ctx) => {
     const auth = getAuth(ctx);
-    console.log(auth);
     if (!auth?.userId) {
       return ctx.json({ error: "Unauthorized." }, 401);
     }
