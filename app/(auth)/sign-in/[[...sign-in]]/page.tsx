@@ -1,5 +1,5 @@
 import { ClerkLoaded, ClerkLoading, SignIn } from "@clerk/nextjs";
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 import Image from "next/image";
 
 export default function Page() {
@@ -18,7 +18,7 @@ export default function Page() {
             <SignIn path="/sign-in" />
           </ClerkLoaded>
           <ClerkLoading>
-            <Loader2 className="animate-spin text-muted-foreground" />
+            <Loader className="animate-spin text-muted-foreground" />
           </ClerkLoading>
         </div>
       </div>
