@@ -1,13 +1,16 @@
+import React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import React from "react";
-import { QueryProviders } from "@/providers/query-provider";
-const inter = Inter({ subsets: ["latin"] });
+
 import { Toaster } from "@/components/ui/sonner";
+
+import { ClerkProvider } from "@clerk/nextjs";
+import { QueryProviders } from "@/providers/query-provider";
 import { SheetProvider } from "@/providers/sheet-provider";
+
+const montserrat = Montserrat({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +25,7 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl="/">
       <html lang="en">
-        <body className={inter.className}>
+        <body className={montserrat.className}>
           <QueryProviders>
             <SheetProvider />
             <Toaster richColors theme="light" />
