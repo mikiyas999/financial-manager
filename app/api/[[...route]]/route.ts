@@ -12,7 +12,7 @@ const app = new Hono().basePath("/api");
 const routes = app
   .route("/accounts", accounts)
   .route("/categories", categories)
-  .route("/transaction", transaction);
+  .route("/transactions", transaction);
 
 export const GET = handle(app);
 export const POST = handle(app);
