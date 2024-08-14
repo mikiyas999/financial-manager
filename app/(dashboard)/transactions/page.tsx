@@ -2,25 +2,27 @@
 
 import React from "react";
 
+import { Loader, Plus } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader, Plus } from "lucide-react";
-import { DataTable } from "@/components/data-table";
-import { columns } from "./columns";
-
-import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
+
+import { columns } from "./columns";
+import { DataTable } from "@/components/data-table";
+
 import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
+import { useGetTransactions } from "@/features/transactions/api/use-get-transactions";
+import { useBulkDeletetransaction } from "@/features/transactions/api/use-bulk-delete-transactions";
 
 const TransactionPage = () => {
   const { onOpen } = useNewTransaction();
-  const accountsQuery = useGetAccounts();
-  const deleteAccounts = useBulkDeleteAccounts();
-  const accounts = accountsQuery.data || [];
-  const isDisable = accountsQuery.isLoading || deleteAccounts.isPending;
 
-  if (accountsQuery.isLoading) {
+  const transactionsQuery = useGetTransactions();
+  const deleteTransaction = useBulkDeletetransaction();
+  const transaction = transactionsQuery.data || [];
+  const isDisable = transactionsQuery.isLoading || deleteTransaction.isPending;
+
+  if (transactionsQuery.isLoading) {
     <div className="mx-auto -mt-6 w-full max-w-screen-2xl pb-10">
       <Card className="border-none drop-shadow-sm ">
         <CardHeader>
@@ -39,7 +41,7 @@ const TransactionPage = () => {
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-2 lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="line-clamp-1 text-xl">
-            Transaction page
+            Transaction History
           </CardTitle>
           <Button size="sm" onClick={onOpen}>
             <Plus className="mr-2 size-4" />
@@ -49,11 +51,11 @@ const TransactionPage = () => {
         <CardContent>
           <DataTable
             columns={columns}
-            data={accounts}
-            filterKey="name"
+            data={transaction}
+            filterKey="account"
             onDelete={(row) => {
               const ids = row.map((r) => r.original.id);
-              deleteAccounts.mutate({ ids });
+              deleteTransaction.mutate({ ids });
             }}
             disabled={isDisable}
           />
