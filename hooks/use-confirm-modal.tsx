@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Image from "next/image";
 
 export const useConfirm = (
   title: string,
@@ -39,6 +40,9 @@ export const useConfirm = (
     <Dialog open={promise !== null} onOpenChange={handleCancel}>
       <DialogContent>
         <DialogHeader>
+          <div className="flex items-center justify-center">
+            <Image src="/trash.png" alt="trash icon" width={75} height={75} />
+          </div>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{message}</DialogDescription>
         </DialogHeader>
