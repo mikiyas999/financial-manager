@@ -12,18 +12,20 @@ import {
 import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
 import { useOpenAccount } from "@/features/accounts/hooks/use-open-account";
 import { useConfirm } from "@/hooks/use-confirm-modal";
+import { useOpenTransaction } from "@/features/transactions/hooks/use-open-transaction";
+import { useDeleteTransaction } from "@/features/transactions/api/use-delete-transaction";
 
 type ActionsProps = {
   id: string;
 };
 
 export const Actions = ({ id }: ActionsProps) => {
-  const deleteMutation = useDeleteAccount(id);
-  const { onOpen } = useOpenAccount();
+  const deleteMutation = useDeleteTransaction(id);
+  const { onOpen } = useOpenTransaction();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
-    "You are about to delete this account."
+    "You are about to delete this transaction."
   );
 
   const handleDelete = async () => {
