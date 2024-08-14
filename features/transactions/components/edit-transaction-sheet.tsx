@@ -8,7 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { insertAccountSchema } from "@/db/schema";
+import { insertAccountSchema, insertTransactionSchema } from "@/db/schema";
 import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
 import { useEditAccount } from "@/features/accounts/api/use-edit-account";
 import { useGetAccount } from "@/features/accounts/api/use-get-account";
@@ -16,28 +16,61 @@ import { useOpenAccount } from "@/features/accounts/hooks/use-open-account";
 import { useConfirm } from "@/hooks/use-confirm-modal";
 
 import { TransactionForm } from "./TransactionForm";
+import { useOpenTransaction } from "../hooks/use-open-transaction";
+import { useGetTransaction } from "../api/use-get-transaction";
+import { useEditTransaction } from "../api/use-edit-transaction";
+import { useDeleteTransaction } from "../api/use-delete-transaction";
+import { useCreateCategory } from "@/features/categories/api/use-create-category";
+import { useGetCategories } from "@/features/categories/api/use-get-categories";
+import { useCreateAccount } from "@/features/accounts/api/use-create-account";
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 
-const formSchema = insertAccountSchema.pick({
-  name: true,
+const formSchema = insertTransactionSchema.omit({
+  id: true,
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 export const EditTransactionSheet = () => {
-  const { isOpen, onClose, id } = useOpenAccount();
+  const { isOpen, onClose, id } = useOpenTransaction();
 
   const [ConfirmDialog, confirm] = useConfirm(
     "Are you sure?",
-    "You are about to delete this account."
+    "You are about to delete this Transaction."
   );
 
-  const accountQuery = useGetAccount(id);
-  const editMutation = useEditAccount(id);
-  const deleteMutation = useDeleteAccount(id);
+  const transactionQuery = useGetTransaction(id);
+  const editMutation = useEditTransaction(id);
+  const deleteMutation = useDeleteTransaction(id);
 
-  const isPending = editMutation.isPending || deleteMutation.isPending;
+  const categoryMutation = useCreateCategory();
+  const categoryQuery = useGetCategories();
+  const categoryOptions = (categoryQuery.data ?? []).map((category) => ({
+    label: category.name,
+    value: category.id,
+  }));
 
-  const isLoading = accountQuery.isLoading;
+  const accountMutation = useCreateAccount();
+  const accountQuery = useGetAccounts();
+  const accountOptions = (accountQuery.data ?? []).map((account) => ({
+    label: account.name,
+    value: account.id,
+  }));
+
+  const onCreateAccount = (name: string) => accountMutation.mutate({ name });
+  const onCreateCategory = (name: string) => categoryMutation.mutate({ name });
+
+  const isPending =
+    editMutation.isPending ||
+    deleteMutation.isPending ||
+    transactionQuery.isLoading ||
+    categoryMutation.isPending ||
+    accountMutation.isPending;
+
+  const isLoading =
+    transactionQuery.isLoading ||
+    categoryQuery.isLoading ||
+    accountQuery.isLoading;
 
   const onSubmit = (values: FormValues) => {
     editMutation.mutate(values, {
@@ -47,12 +80,24 @@ export const EditTransactionSheet = () => {
     });
   };
 
-  const defaultValues = accountQuery.data
+  const defaultValues = transactionQuery.data
     ? {
-        name: accountQuery.data.name,
+        accountId: transactionQuery.data.accountId,
+        categoryId: transactionQuery.data.categoryId,
+        amount: transactionQuery.data.amount.toString(),
+        date: transactionQuery.data.date
+          ? new Date(transactionQuery.data.date)
+          : new Date(),
+        payee: transactionQuery.data.payee,
+        notes: transactionQuery.data.notes,
       }
     : {
-        name: "",
+        accountId: "",
+        categoryId: "",
+        amount: "",
+        date: new Date(),
+        payee: "",
+        notes: "",
       };
 
   const onDelete = async () => {
@@ -89,6 +134,10 @@ export const EditTransactionSheet = () => {
               onSubmit={onSubmit}
               disabled={isPending}
               onDelete={onDelete}
+              categoryOptions={categoryOptions}
+              onCreateCategory={onCreateCategory}
+              accountOptions={accountOptions}
+              onCreateAccount={onCreateAccount}
             />
           )}
         </SheetContent>

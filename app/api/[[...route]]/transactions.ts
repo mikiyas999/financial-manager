@@ -9,7 +9,6 @@ import { db } from "@/db/drizzle";
 import {
   accounts,
   categories,
-  insertAccountSchema,
   insertTransactionSchema,
   transactions,
 } from "@/db/schema";
@@ -45,13 +44,15 @@ const app = new Hono()
 
       const data = await db
         .select({
-          id: accounts.id,
+          id: transactions.id,
           date: transactions.date,
           categoryId: transactions.categoryId,
+          category: categories.name,
           payee: transactions.payee,
           notes: transactions.notes,
           accountId: transactions.accountId,
           account: accounts.name,
+          amount: transactions.amount,
         })
         .from(transactions)
         .innerJoin(accounts, eq(transactions.accountId, accounts.id))
@@ -92,7 +93,7 @@ const app = new Hono()
 
       const [data] = await db
         .select({
-          id: accounts.id,
+          id: transactions.id,
           date: transactions.date,
           categoryId: transactions.categoryId,
           payee: transactions.payee,
