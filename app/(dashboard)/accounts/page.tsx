@@ -19,18 +19,20 @@ const Accounts = () => {
   const isDisable = accountsQuery.isLoading || deleteAccounts.isPending;
 
   if (accountsQuery.isLoading) {
-    <div className="mx-auto -mt-6 w-full max-w-screen-2xl pb-10">
-      <Card className="border-none drop-shadow-sm ">
-        <CardHeader>
-          <Skeleton className="h-8 w-48" />
-        </CardHeader>
-        <CardContent>
-          <div className="flex h-[500px] w-full items-center justify-center">
-            <Loader className="size-6 animate-spin text-slate-300" />
-          </div>
-        </CardContent>
-      </Card>
-    </div>;
+    return (
+      <div className="mx-auto -mt-6 w-full max-w-screen-2xl pb-10">
+        <Card className="border-none drop-shadow-sm ">
+          <CardHeader>
+            <Skeleton className="h-12 w-52 bg-emerald-300/20" />
+          </CardHeader>
+          <CardContent>
+            <div className="flex h-[500px] w-full items-center justify-center">
+              <Loader className="size-6 animate-spin text-slate-800" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
   return (
     <div className="mx-auto -mt-6 w-full max-w-screen-2xl pb-10">

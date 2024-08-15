@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Plus } from "lucide-react";
+import { Loader, Loader2, Plus } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -81,14 +81,13 @@ const TransactionsPage = () => {
   if (transactionsQuery.isLoading) {
     return (
       <div className="mx-auto -mt-6 w-full max-w-screen-2xl pb-10">
-        <Card className="border-none drop-shadow-sm">
+        <Card className="border-none drop-shadow-sm ">
           <CardHeader>
-            <Skeleton className="h-8 w-48" />
+            <Skeleton className="h-12 w-52 bg-emerald-300/20" />
           </CardHeader>
-
           <CardContent>
             <div className="flex h-[500px] w-full items-center justify-center">
-              <Loader2 className="size-6 animate-spin text-slate-300" />
+              <Loader className="size-6 animate-spin text-slate-800" />
             </div>
           </CardContent>
         </Card>
