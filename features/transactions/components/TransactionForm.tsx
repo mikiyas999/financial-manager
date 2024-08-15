@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { IdCardIcon, Trash } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,7 @@ import DatePicker from "@/components/date-picker";
 import { Select } from "@/components/select";
 import AmountInput from "@/components/amount-input";
 import { Textarea } from "@/components/ui/textarea";
+
 import { convertAmountToMilliunits } from "@/lib/utils";
 
 const formSchema = z.object({
