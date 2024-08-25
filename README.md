@@ -151,6 +151,13 @@ Once the script completes, check your database to ensure that the transaction da
 
 ## :camera: Screenshot.
 
+
+![Modern UI/UX](/.github/images/img2.png "Modern UI/UX")
+
+![Transactions](/.github/images/img3.png "Transactions")
+
+![Accounts](/.github/images/img4.png "Accounts")
+
 Features:
 
 📊 Interactive financial dashboard
