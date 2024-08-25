@@ -42,7 +42,7 @@ const CategoryPage = () => {
     <div className="mx-auto -mt-6 w-full max-w-screen-2xl pb-10">
       <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-2 lg:flex-row lg:items-center lg:justify-between">
-          <CardTitle className="line-clamp-1 text-xl">Category page</CardTitle>
+          <CardTitle className="line-clamp-1 text-xl">Categories page</CardTitle>
           <Button size="sm" onClick={onOpen}>
             <Plus className="mr-2 size-4" />
             Add new
