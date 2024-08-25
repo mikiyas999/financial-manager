@@ -15,8 +15,10 @@ import { useBulkDeleteCategories } from "@/features/categories/api/use-bulk-dele
 
 const CategoryPage = () => {
   const { onOpen } = useNewCategory();
+
   const categoriesQuery = useGetCategories();
   const deleteCategories = useBulkDeleteCategories();
+
   const categories = categoriesQuery.data || [];
   const isDisable = categoriesQuery.isLoading || deleteCategories.isPending;
 
