@@ -2,7 +2,7 @@
 
 # Track your income and expenses with Finance.
 
-![Track your income and expenses with Finance.](/.github/images/img_main.png "Track your income and expenses with Finance.")
+![Track your income and expenses with Finance.](/.github/images/img1.png "Track your income and expenses with Finance.")
 
 
 ## :bangbang: Folder Structure
