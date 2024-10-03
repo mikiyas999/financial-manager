@@ -119,15 +119,9 @@ Features:
 
 🪝 State management via **Tanstack React Query**
 
-🔗 Bank account connections with **Plaid**
-
-💳 Premium upgrades via **Lemon Squeezy**
-
 🔐 Authentication via **Clerk (Core 2)**
 
 🗑 Bulk delete and search in transactions
-
-⚙️ Bank disconnection and subscription management
 
 👤 User settings customization
 
